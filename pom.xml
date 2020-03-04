@@ -6,7 +6,7 @@
 
     <groupId>com.fit2cloud</groupId>
     <artifactId>quartz-spring-boot-starter</artifactId>
-    <version>0.0.5</version>
+    <version>0.0.5-htsec</version>
     <packaging>jar</packaging>
     <properties>
         <quartz.version>2.3.0</quartz.version>
@@ -115,6 +115,11 @@
     </pluginRepositories>
     <distributionManagement>
         <repository>
+            <id>htsec</id>
+            <name>htsec</name>
+            <url>http://172.190.92.78:8081/repository/htsec/</url>
+        </repository>
+        <!--<repository>
             <id>releases</id>
             <name>Nexus Release Repository</name>
             <url>http://repository.fit2cloud.com/content/repositories/releases/</url>
@@ -123,6 +128,6 @@
             <id>snapshots</id>
             <name>Nexus Snapshot Repository</name>
             <url>http://repository.fit2cloud.com/content/repositories/snapshots/</url>
-        </snapshotRepository>
+        </snapshotRepository>-->
     </distributionManagement>
 </project>

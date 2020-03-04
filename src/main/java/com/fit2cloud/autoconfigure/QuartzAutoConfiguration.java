@@ -76,6 +76,7 @@ public class QuartzAutoConfiguration {
         props.put("org.quartz.jobStore.tablePrefix", "QRTZ_");
         props.put("org.quartz.jobStore.isClustered", "true");
         props.put("org.quartz.jobStore.clusterCheckinInterval", "20000");
+        props.put("org.quartz.jobStore.acquireTriggersWithinLock", "true");
         props.put("org.quartz.threadPool.class", "org.quartz.simpl.SimpleThreadPool");
         // thread count
         String threadCount = this.properties.getThreadCount().toString();
