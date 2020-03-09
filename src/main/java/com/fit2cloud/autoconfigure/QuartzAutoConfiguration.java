@@ -66,7 +66,8 @@ public class QuartzAutoConfiguration {
         schedulerFactoryBean.setDataSource(this.dataSource);
         schedulerFactoryBean.setApplicationContextSchedulerContextKey("applicationContextKey");
         schedulerFactoryBean.setOverwriteExistingJobs(true);
-        schedulerFactoryBean.setStartupDelay(60);// 60 秒之后开始执行定时任务
+        schedulerFactoryBean.setStartupDelay(90);// 60 秒之后开始执行定时任务
+        schedulerFactoryBean.setAutoStartup(false);
         Properties props = new Properties();
         props.put("org.quartz.scheduler.instanceName", "clusterScheduler");
         props.put("org.quartz.scheduler.instanceId", "AUTO"); // 集群下的instanceId 必须唯一
@@ -76,6 +77,7 @@ public class QuartzAutoConfiguration {
         props.put("org.quartz.jobStore.tablePrefix", "QRTZ_");
         props.put("org.quartz.jobStore.isClustered", "true");
         props.put("org.quartz.jobStore.clusterCheckinInterval", "20000");
+        props.put("org.quartz.jobStore.misfireThreshold", "60000");
         //props.put("org.quartz.jobStore.acquireTriggersWithinLock", "true");
         props.put("org.quartz.threadPool.class", "org.quartz.simpl.SimpleThreadPool");
         // thread count

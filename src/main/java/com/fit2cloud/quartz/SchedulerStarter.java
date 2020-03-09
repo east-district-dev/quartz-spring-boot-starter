@@ -10,6 +10,7 @@ import org.quartz.*;
 import org.quartz.impl.matchers.GroupMatcher;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;
+import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -79,7 +80,7 @@ public class SchedulerStarter implements BeanPostProcessor, ApplicationContextAw
                                 .storeDurably(true).usingJobData(jobDataMap).build();
                         trigger = TriggerBuilder.newTrigger().withIdentity(jobDetailIdentity)
                                 .startAt(new Date(now.plusMillis(initialDelay).toEpochMilli()))
-                                .withSchedule(CronScheduleBuilder.cronSchedule(cron).inTimeZone(quartzTimeZone))
+                                .withSchedule(CronScheduleBuilder.cronSchedule(cron).inTimeZone(quartzTimeZone).withMisfireHandlingInstructionDoNothing())
                                 .build();
                     } else if (fixedDelay > 0) {
                         jobDataMap.put(FixedDelayJobListener.FIXED_DELAY_JOB_DATA, new FixedDelayJobData(fixedDelay));
@@ -114,13 +115,13 @@ public class SchedulerStarter implements BeanPostProcessor, ApplicationContextAw
     }
 
     /**
-     * spring 完全刷新之后执行
+     * spring 完全启动之后执行
      *
      * @param event
      * @throws BeansException
      */
     @EventListener
-    public void startScheduler(ContextRefreshedEvent event) throws BeansException {
+    public void startScheduler(ApplicationReadyEvent event) throws BeansException {
         try {
             scheduler.deleteJobs(getJobKeys());
             scheduler.unscheduleJobs(getTriggerKeys());
@@ -130,7 +131,8 @@ public class SchedulerStarter implements BeanPostProcessor, ApplicationContextAw
                 scheduler.scheduleJob(jobDetailTrigger.jobDetail, jobDetailTrigger.trigger);
             }
             if (!scheduler.isShutdown()) {
-                //scheduler.startDelayed(60);
+                scheduler.startDelayed(30);
+                System.out.println("[" + new Date() + "] quartz scheduler will start in 30s.");
             }
         } catch (SchedulerException e) {
             e.printStackTrace();
