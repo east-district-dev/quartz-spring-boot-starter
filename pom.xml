@@ -11,6 +11,7 @@
     <properties>
         <quartz.version>2.3.0</quartz.version>
         <java.version>1.8</java.version>
+        <nexus.url>http://172.190.92.78:8081/repository/htsec</nexus.url>
     </properties>
     <dependencies>
         <dependency>
@@ -101,7 +102,8 @@
         <repository>
             <id>htsec</id>
             <name>htsec</name>
-            <url>http://172.190.92.78:8081/repository/htsec</url>
+            <!--<url>http://172.190.92.78:8081/repository/htsec</url>-->
+            <url>${nexus.url}</url>
             <releases>
                 <enabled>true</enabled>
             </releases>
@@ -127,7 +129,8 @@
         <repository>
             <id>htsec</id>
             <name>htsec</name>
-            <url>http://172.190.92.78:8081/repository/htsec/</url>
+            <!--<url>http://172.190.92.78:8081/repository/htsec/</url>-->
+            <url>${nexus.url}</url>
         </repository>
         <!--<repository>
             <id>releases</id>
