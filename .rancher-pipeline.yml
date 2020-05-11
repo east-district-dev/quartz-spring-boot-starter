@@ -5,6 +5,7 @@ stages:
         image: registry.dev.htsec.com/cmp-dev/maven2:latest
         shellScript: mvn clean deploy
 timeout: 60
+branch:
   include:
   - 0.0.5-htsec
   exclude:
