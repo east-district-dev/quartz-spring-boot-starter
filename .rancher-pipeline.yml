@@ -6,6 +6,8 @@ stages:
         shellScript: mvn clean deploy
 timeout: 60
 branch:
-  exclude:
+  include:
   - 0.0.5-htsec-master
+  exclude:
+  - 0.0.5-htsec
 notification: {}
