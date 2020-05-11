@@ -1,0 +1,8 @@
+stages:
+- name: Build
+  steps:
+    - runScriptConfig:
+        image: registry.dev.htsec.com/cmp-dev/maven2:latest
+        shellScript: mvn clean deploy
+timeout: 60
+notification: {}
