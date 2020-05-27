@@ -2,8 +2,8 @@ stages:
 - name: Build
   steps:
     - runScriptConfig:
-        image: registry.dev.htsec.com/cmp-dev/maven2:latest
-        shellScript: mvn clean deploy
+        image: registry.dev.htsec.com/cmp-beta/maven2:latest
+        shellScript: mvn clean deploy -Dnexus.url=http://172.190.91.160:8081/repository/Htsec-cmp-beta
 timeout: 60
 branch:
   include:
